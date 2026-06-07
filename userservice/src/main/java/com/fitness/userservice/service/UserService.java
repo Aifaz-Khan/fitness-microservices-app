@@ -4,7 +4,6 @@ import com.fitness.userservice.dto.RegisterRequest;
 import com.fitness.userservice.dto.UserResponse;
 import com.fitness.userservice.model.User;
 import com.fitness.userservice.repository.UserRepository;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,7 +34,7 @@ public class UserService {
        return userResponse;
     }
 
-    public @Nullable UserResponse getUserProfile(String userId) {
+    public UserResponse getUserProfile(String userId) {
         User user = repository.findById(userId)
                 .orElseThrow(()->new RuntimeException("user not Found"));
         UserResponse userResponse  = new UserResponse();
