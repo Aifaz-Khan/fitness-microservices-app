@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="354e01ad-a60a-4f05-b06f-8d273e1cb9cb" name="Changes" comment="Add activity microservice, MongoDB integration, and Eureka server">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/fitness_microservice.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/activityservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/activityservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/activityservice/src/main/java/com/fitness/activityservice/service/ActivityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/activityservice/src/main/java/com/fitness/activityservice/service/ActivityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/activityservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/activityservice/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/userservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/userservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/userservice/src/main/java/com/fitness/userservice/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/userservice/src/main/java/com/fitness/userservice/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/userservice/src/main/java/com/fitness/userservice/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/userservice/src/main/java/com/fitness/userservice/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/userservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/userservice/src/main/resources/application.yml" afterDir="false" />
+    <list default="true" id="354e01ad-a60a-4f05-b06f-8d273e1cb9cb" name="Changes" comment="connected all microservice using eureka server and connected with the database">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aiservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/aiservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aiservice/src/main/java/com/fitness/aiservice/model/Recommendation.java" beforeDir="false" afterPath="$PROJECT_DIR$/aiservice/src/main/java/com/fitness/aiservice/model/Recommendation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780842966197</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="connected all microservice using eureka server and connected with the database">
+      <option name="closed" value="true" />
+      <created>1781264983921</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1781264983921</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -262,6 +260,7 @@
     <MESSAGE value="added the user activity microservice and added controller request and response" />
     <MESSAGE value="connected with the mongodb database with the useractivity" />
     <MESSAGE value="Add activity microservice, MongoDB integration, and Eureka server" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add activity microservice, MongoDB integration, and Eureka server" />
+    <MESSAGE value="connected all microservice using eureka server and connected with the database" />
+    <option name="LAST_COMMIT_MESSAGE" value="connected all microservice using eureka server and connected with the database" />
   </component>
 </project>
