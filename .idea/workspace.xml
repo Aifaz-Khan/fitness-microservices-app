@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="354e01ad-a60a-4f05-b06f-8d273e1cb9cb" name="Changes" comment="connected all microservice using eureka server and connected with the database">
+    <list default="true" id="354e01ad-a60a-4f05-b06f-8d273e1cb9cb" name="Changes" comment="&quot;feat: add AI recommendation microservice with user/activity endpoints&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aiservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/aiservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aiservice/src/main/java/com/fitness/aiservice/model/Recommendation.java" beforeDir="false" afterPath="$PROJECT_DIR$/aiservice/src/main/java/com/fitness/aiservice/model/Recommendation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activityservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/activityservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activityservice/src/main/java/com/fitness/activityservice/service/ActivityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/activityservice/src/main/java/com/fitness/activityservice/service/ActivityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activityservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/activityservice/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +90,7 @@
       <recent name="com.fitness.userservice.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AiserviceApplication">
+  <component name="RunManager" selected="Application.ActivityserviceApplication">
     <configuration name="ActivityserviceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.fitness.activityservice.ActivityserviceApplication" />
       <module name="activityservice" />
@@ -143,8 +145,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AiserviceApplication" />
         <item itemvalue="Application.ActivityserviceApplication" />
+        <item itemvalue="Application.AiserviceApplication" />
         <item itemvalue="Application.UserserviceApplication" />
         <item itemvalue="Application.EurekaApplication" />
       </list>
@@ -238,7 +240,23 @@
       <option name="project" value="LOCAL" />
       <updated>1781264983921</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="&quot;feat: add AI recommendation microservice with user/activity endpoints&quot;">
+      <option name="closed" value="true" />
+      <created>1781448195516</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1781448195516</updated>
+    </task>
+    <task id="LOCAL-00012" summary="&quot;feat: add AI recommendation microservice with user/activity endpoints&quot;">
+      <option name="closed" value="true" />
+      <created>1781448300545</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1781448300545</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -261,6 +279,7 @@
     <MESSAGE value="connected with the mongodb database with the useractivity" />
     <MESSAGE value="Add activity microservice, MongoDB integration, and Eureka server" />
     <MESSAGE value="connected all microservice using eureka server and connected with the database" />
-    <option name="LAST_COMMIT_MESSAGE" value="connected all microservice using eureka server and connected with the database" />
+    <MESSAGE value="&quot;feat: add AI recommendation microservice with user/activity endpoints&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;feat: add AI recommendation microservice with user/activity endpoints&quot;" />
   </component>
 </project>
