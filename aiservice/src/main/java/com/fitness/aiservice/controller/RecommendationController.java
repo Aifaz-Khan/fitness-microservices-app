@@ -9,6 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fitness.aiservice.dto.ChatRequest;
+import com.fitness.aiservice.dto.ChatResponse;
+import com.fitness.aiservice.model.ChatMessage;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+
 import java.util.List;
 
 @RestController
@@ -25,5 +32,15 @@ public class RecommendationController {
     @GetMapping("/activity/{activityId}")
     public ResponseEntity<Recommendation> getActivityRecommendation(@PathVariable String activityId){
         return ResponseEntity.ok(recommendationService.getActivityRecommendation(activityId));
+    }
+
+    @GetMapping("/chat")
+    public ResponseEntity<List<ChatMessage>> getChatHistory(@RequestHeader("X-User-ID") String userId){
+        return ResponseEntity.ok(recommendationService.getChatHistory(userId));
+    }
+
+    @PostMapping("/chat")
+    public ResponseEntity<ChatResponse> chat(@RequestHeader("X-User-ID") String userId, @RequestBody ChatRequest request){
+        return ResponseEntity.ok(recommendationService.getChatReply(userId, request));
     }
 }
