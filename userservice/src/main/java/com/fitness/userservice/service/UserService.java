@@ -10,48 +10,81 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class UserService {
-    private UserRepository repository;
+
+    private final UserRepository repository;
+
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
-    public UserResponse register( RegisterRequest request) {
-        if(repository.existsByEmail(request.getEmail())){
-            throw new RuntimeException("Email Already Exists");
+    public UserResponse register(RegisterRequest request) {
+
+        log.info("Received KeycloakId: {}", request.getKeycloakId());
+
+        if (repository.existsByEmail(request.getEmail())) {
+
+            User existingUser = repository.findByEmail(request.getEmail());
+
+            UserResponse userResponse = new UserResponse();
+            userResponse.setId(existingUser.getId());
+            userResponse.setKeycloakId(existingUser.getKeycloakId());
+            userResponse.setPassword(existingUser.getPassword());
+            userResponse.setEmail(existingUser.getEmail());
+            userResponse.setFirstName(existingUser.getFirstName());
+            userResponse.setLastName(existingUser.getLastName());
+            userResponse.setCreatedAt(existingUser.getCreatedAt());
+            userResponse.setUpdatedAt(existingUser.getUpdatedAt());
+
+            return userResponse;
         }
+
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
+
+        // Save Keycloak ID
+        user.setKeycloakId(request.getKeycloakId());
+
         user.setFirstName(request.getFirstname());
         user.setLastName(request.getLastname());
-       User savedUser= repository.save(user);
-       UserResponse userResponse  = new UserResponse();
-       userResponse.setId(savedUser.getId());
-       userResponse.setPassword(savedUser.getPassword());
-       userResponse.setEmail(savedUser.getEmail());
-       userResponse.setFirstName(savedUser.getFirstName());
-       userResponse.setLastName(savedUser.getLastName());
-       userResponse.setCreatedAt(savedUser.getCreatedAt());
-       userResponse.setUpdatedAt(savedUser.getUpdatedAt());
-       return userResponse;
+
+        User savedUser = repository.save(user);
+
+        UserResponse userResponse = new UserResponse();
+        userResponse.setId(savedUser.getId());
+        userResponse.setKeycloakId(savedUser.getKeycloakId());
+        userResponse.setPassword(savedUser.getPassword());
+        userResponse.setEmail(savedUser.getEmail());
+        userResponse.setFirstName(savedUser.getFirstName());
+        userResponse.setLastName(savedUser.getLastName());
+        userResponse.setCreatedAt(savedUser.getCreatedAt());
+        userResponse.setUpdatedAt(savedUser.getUpdatedAt());
+
+        return userResponse;
     }
 
     public UserResponse getUserProfile(String userId) {
+
         User user = repository.findById(userId)
-                .orElseThrow(()->new RuntimeException("user not Found"));
-        UserResponse userResponse  = new UserResponse();
+                .orElseThrow(() -> new RuntimeException("User Not Found"));
+
+        UserResponse userResponse = new UserResponse();
         userResponse.setId(user.getId());
+        userResponse.setKeycloakId(user.getKeycloakId());
         userResponse.setPassword(user.getPassword());
         userResponse.setEmail(user.getEmail());
         userResponse.setFirstName(user.getFirstName());
         userResponse.setLastName(user.getLastName());
         userResponse.setCreatedAt(user.getCreatedAt());
         userResponse.setUpdatedAt(user.getUpdatedAt());
+
         return userResponse;
     }
 
     public Boolean existByUserId(String userId) {
-        log.info("Calling User Validation Api for userId: {}", userId);
-        return repository.existsById(userId);
+
+        log.info("Calling User Validation API for userId: {}", userId);
+
+        return repository.existsByKeycloakId(userId);
     }
 }
