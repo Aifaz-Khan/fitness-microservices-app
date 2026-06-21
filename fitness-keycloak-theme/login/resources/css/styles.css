@@ -1,0 +1,283 @@
+/* Import Google Fonts - Outfit */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --background: #0B0F14;
+  --primary: #00D4FF;
+  --secondary: #7C3AED;
+  --success: #22C55E;
+  --error: #EF4444;
+  
+  --card-bg: #121820;
+  --border: #1E293B;
+  --input-bg: #1A222D;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  
+  --sans: 'Outfit', system-ui, -apple-system, sans-serif;
+}
+
+/* Reset and body backgrounds */
+body.login-pf-page, body {
+  background-color: var(--background) !important;
+  background-image: none !important; /* Remove patternfly default background image */
+  color: var(--text-primary) !important;
+  font-family: var(--sans) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* App Logo Header spacing and decoration */
+#kc-header {
+  display: flex !important;
+  justify-content: center !important;
+  margin-top: 40px !important;
+  margin-bottom: 24px !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+#kc-header-wrapper {
+  color: var(--text-primary) !important;
+  font-family: var(--sans) !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.5px !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  padding: 0 !important;
+}
+
+#kc-header-wrapper::before {
+  content: "" !important;
+  display: inline-block !important;
+  width: 8px !important;
+  height: 8px !important;
+  background-color: var(--primary) !important;
+  border-radius: 50% !important;
+  margin-right: 8px !important;
+  vertical-align: middle !important;
+  box-shadow: 0 0 10px var(--primary) !important;
+}
+
+/* Standard Keycloak Container Panel Card */
+.card-pf {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
+  padding: 32px !important;
+  max-width: 480px !important;
+  margin: 0 auto 40px !important;
+  transition: border-color 0.25s ease !important;
+}
+
+.card-pf:hover {
+  border-color: rgba(0, 212, 255, 0.3) !important;
+}
+
+/* Page Title (Login, Register, Reset password header) */
+#kc-page-title {
+  color: var(--text-primary) !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  margin-bottom: 24px !important;
+  margin-top: 0 !important;
+  text-align: center !important;
+  font-family: var(--sans) !important;
+}
+
+/* Form inputs & Labels */
+.form-group {
+  margin-bottom: 20px !important;
+}
+
+label.control-label {
+  color: var(--text-secondary) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 6px !important;
+  display: block !important;
+}
+
+input.form-control {
+  width: 100% !important;
+  padding: 12px 16px !important;
+  background-color: var(--input-bg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  font-family: var(--sans) !important;
+  font-size: 15px !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  outline: none !important;
+  height: auto !important;
+  box-shadow: none !important;
+}
+
+input.form-control:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15) !important;
+}
+
+input.form-control::placeholder {
+  color: #576574 !important;
+}
+
+/* Links & Help items */
+a, a:visited, a:hover, a:focus {
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  transition: opacity 0.2s ease !important;
+}
+
+a:hover {
+  opacity: 0.85 !important;
+  text-decoration: underline !important;
+}
+
+/* Remember me checkbox and other options */
+#kc-form-options {
+  font-size: 14px !important;
+  color: var(--text-secondary) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 24px !important;
+}
+
+.checkbox label {
+  color: var(--text-secondary) !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+}
+
+/* Primary Button Styling */
+.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: var(--primary) !important;
+  background-image: none !important;
+  border: none !important;
+  border-radius: 8px !important;
+  color: #000000 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 12px 20px !important;
+  width: 100% !important;
+  transition: all 0.2s ease !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  height: auto !important;
+  text-shadow: none !important;
+}
+
+.btn-primary:hover {
+  background-color: #33ddff !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-primary:active {
+  transform: translateY(0px) !important;
+}
+
+/* Form Helper text and footer signup/login swaps */
+#kc-registration {
+  text-align: center !important;
+  margin-top: 24px !important;
+  color: var(--text-secondary) !important;
+  font-size: 14px !important;
+  border-top: 1px solid var(--border) !important;
+  padding-top: 16px !important;
+}
+
+#kc-info {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin-top: 16px !important;
+  text-align: center !important;
+}
+
+#kc-info-wrapper {
+  color: var(--text-secondary) !important;
+  font-size: 14px !important;
+}
+
+/* Error/Feedback alerts inside cards */
+.alert {
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 20px !important;
+  font-size: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  border: 1px solid transparent !important;
+}
+
+.alert-error, .alert-danger {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+  color: var(--error) !important;
+  border-color: rgba(239, 68, 68, 0.2) !important;
+}
+
+.alert-success {
+  background-color: rgba(34, 197, 94, 0.1) !important;
+  color: var(--success) !important;
+  border-color: rgba(34, 197, 94, 0.2) !important;
+}
+
+.alert-warning {
+  background-color: rgba(124, 58, 237, 0.1) !important;
+  color: var(--secondary) !important;
+  border-color: rgba(124, 58, 237, 0.2) !important;
+}
+
+.alert span.kc-feedback-text {
+  font-weight: 500 !important;
+}
+
+/* Remove default Patternfly icons in alerts */
+.alert .pficon {
+  display: none !important;
+}
+
+/* Social Login/OAuth providers button deck styling */
+#kc-social-providers {
+  margin-top: 24px !important;
+  border-top: 1px solid var(--border) !important;
+  padding-top: 20px !important;
+}
+
+#kc-social-providers ul {
+  list-style: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+#kc-social-providers a.zocial {
+  background-color: #1A222D !important;
+  background-image: none !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  padding: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  width: 100% !important;
+  transition: all 0.2s ease !important;
+}
+
+#kc-social-providers a.zocial:hover {
+  background-color: #242F3D !important;
+  border-color: var(--primary) !important;
+  text-decoration: none !important;
+}
