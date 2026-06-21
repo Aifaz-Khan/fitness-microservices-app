@@ -20,12 +20,22 @@
 }
 
 .nav-brand {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
   color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 8px;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+
+.brand-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--primary);
 }
 
 .nav-brand span {
@@ -331,18 +341,30 @@
   gap: 8px;
   padding: 8px 24px;
   overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  max-width: 100%;
+}
+
+.chat-suggestions::-webkit-scrollbar {
+  display: none;
 }
 
 .suggestion-chip {
   flex-shrink: 0;
-  padding: 6px 14px;
+  padding: 8px 16px;
   border-radius: 99px;
   background-color: #1A222D;
   border: 1px solid var(--border);
   color: var(--text-secondary);
   font-size: 13px;
+  cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .suggestion-chip:hover {
@@ -536,6 +558,11 @@
   }
   .chat-suggestions {
     padding: 6px 12px;
+    gap: 6px;
+  }
+  .suggestion-chip {
+    padding: 6px 12px;
+    font-size: 12px;
   }
   .chat-input-area {
     padding: 12px 12px 16px;

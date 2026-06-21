@@ -10,7 +10,7 @@ export default function Navbar({ userProfile }) {
   return (
     <nav className="navbar">
       <div className="nav-brand">
-        ⚡ <span>FITNESS</span>.AI
+        <span className="brand-dot"></span>FITNESS<span>AI</span>
       </div>
       <div className="nav-links">
         <NavLink to="/" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} end>
