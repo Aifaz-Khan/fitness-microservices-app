@@ -25,4 +25,8 @@ public class UserController {
     public ResponseEntity<Boolean>validate(@PathVariable String userId){
         return ResponseEntity.ok(userService.existByUserId(userId));
     }
+    @PutMapping("/{keycloakId}")
+    public ResponseEntity<UserResponse> updateProfile(@PathVariable String keycloakId, @RequestBody UserResponse request){
+        return ResponseEntity.ok(userService.updateProfile(keycloakId, request));
+    }
 }

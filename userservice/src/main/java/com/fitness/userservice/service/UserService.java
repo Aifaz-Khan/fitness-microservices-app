@@ -32,6 +32,10 @@ public class UserService {
             userResponse.setEmail(existingUser.getEmail());
             userResponse.setFirstName(existingUser.getFirstName());
             userResponse.setLastName(existingUser.getLastName());
+            userResponse.setHeight(existingUser.getHeight());
+            userResponse.setWeight(existingUser.getWeight());
+            userResponse.setAge(existingUser.getAge());
+            userResponse.setGender(existingUser.getGender());
             userResponse.setCreatedAt(existingUser.getCreatedAt());
             userResponse.setUpdatedAt(existingUser.getUpdatedAt());
 
@@ -57,6 +61,10 @@ public class UserService {
         userResponse.setEmail(savedUser.getEmail());
         userResponse.setFirstName(savedUser.getFirstName());
         userResponse.setLastName(savedUser.getLastName());
+        userResponse.setHeight(savedUser.getHeight());
+        userResponse.setWeight(savedUser.getWeight());
+        userResponse.setAge(savedUser.getAge());
+        userResponse.setGender(savedUser.getGender());
         userResponse.setCreatedAt(savedUser.getCreatedAt());
         userResponse.setUpdatedAt(savedUser.getUpdatedAt());
 
@@ -65,8 +73,9 @@ public class UserService {
 
     public UserResponse getUserProfile(String userId) {
 
-        User user = repository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User Not Found"));
+        User user = repository.findByKeycloakId(userId)
+                .orElseGet(() -> repository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User Not Found")));
 
         UserResponse userResponse = new UserResponse();
         userResponse.setId(user.getId());
@@ -75,8 +84,40 @@ public class UserService {
         userResponse.setEmail(user.getEmail());
         userResponse.setFirstName(user.getFirstName());
         userResponse.setLastName(user.getLastName());
+        userResponse.setHeight(user.getHeight());
+        userResponse.setWeight(user.getWeight());
+        userResponse.setAge(user.getAge());
+        userResponse.setGender(user.getGender());
         userResponse.setCreatedAt(user.getCreatedAt());
         userResponse.setUpdatedAt(user.getUpdatedAt());
+
+        return userResponse;
+    }
+
+    public UserResponse updateProfile(String keycloakId, UserResponse request) {
+        User user = repository.findByKeycloakId(keycloakId)
+                .orElseThrow(() -> new RuntimeException("User Not Found"));
+
+        user.setHeight(request.getHeight());
+        user.setWeight(request.getWeight());
+        user.setAge(request.getAge());
+        user.setGender(request.getGender());
+
+        User savedUser = repository.save(user);
+
+        UserResponse userResponse = new UserResponse();
+        userResponse.setId(savedUser.getId());
+        userResponse.setKeycloakId(savedUser.getKeycloakId());
+        userResponse.setPassword(savedUser.getPassword());
+        userResponse.setEmail(savedUser.getEmail());
+        userResponse.setFirstName(savedUser.getFirstName());
+        userResponse.setLastName(savedUser.getLastName());
+        userResponse.setHeight(savedUser.getHeight());
+        userResponse.setWeight(savedUser.getWeight());
+        userResponse.setAge(savedUser.getAge());
+        userResponse.setGender(savedUser.getGender());
+        userResponse.setCreatedAt(savedUser.getCreatedAt());
+        userResponse.setUpdatedAt(savedUser.getUpdatedAt());
 
         return userResponse;
     }

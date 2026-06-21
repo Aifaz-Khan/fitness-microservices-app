@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ActivityForm from '../components/ActivityForm';
 import api from '../services/api';
 
-export default function LogWorkout({ userId }) {
+export default function LogWorkout({ userId, athleteProfile }) {
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ export default function LogWorkout({ userId }) {
         </div>
       )}
 
-      <ActivityForm onSubmit={handleLogWorkout} loading={loading} />
+      <ActivityForm onSubmit={handleLogWorkout} loading={loading} athleteProfile={athleteProfile} />
     </div>
   );
 }

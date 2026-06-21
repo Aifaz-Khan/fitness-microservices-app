@@ -171,6 +171,8 @@ public class ActivityAIService {
             3. Next workout suggestions
             4. Safety recommendations
 
+            NOTE: If heart rate data is not directly recorded, analyze the workout intensity based on the 'rpe' (Rate of Perceived Exertion, 1-10 scale) score in additional metrics, the session duration, and the workout frequency.
+
             IMPORTANT:
             - Return ONLY valid JSON.
             - Do not include markdown.

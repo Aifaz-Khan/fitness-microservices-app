@@ -115,8 +115,20 @@ public class RecommendationService {
                     .collectList()
                     .block();
 
+            // Fetch user profile from userservice
+            Map<String, Object> userProfile = null;
+            try {
+                userProfile = webClient.get()
+                        .uri("http://localhost:8081/api/users/" + userId)
+                        .retrieve()
+                        .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
+                        .block();
+            } catch (Exception e) {
+                System.out.println("Failed to fetch user profile: " + e.getMessage());
+            }
+
             // 2. Compile prompt
-            String prompt = createGoalPlanPrompt(request, activities);
+            String prompt = createGoalPlanPrompt(request, activities, userProfile);
 
             // 3. Request answer from Gemini
             String aiResponse = geminiService.getAnswer(prompt);
@@ -163,7 +175,7 @@ public class RecommendationService {
         }
     }
 
-    private String createGoalPlanPrompt(GoalPlanRequest request, List<Map<String, Object>> activities) {
+    private String createGoalPlanPrompt(GoalPlanRequest request, List<Map<String, Object>> activities, Map<String, Object> userProfile) {
         StringBuilder prompt = new StringBuilder();
         prompt.append("Analyze this user's fitness request and compile a tailored fitness program in the EXACT JSON format below.\n\n");
         
@@ -190,6 +202,16 @@ public class RecommendationService {
         prompt.append("- Target Weight: ").append(request.getTargetWeight()).append(" kg\n");
         prompt.append("- Fitness Level: ").append(request.getFitnessLevel()).append("\n\n");
 
+        prompt.append("User Profile Demographics:\n");
+        if (userProfile != null) {
+            prompt.append("- Age: ").append(userProfile.get("age")).append("\n");
+            prompt.append("- Gender: ").append(userProfile.get("gender")).append("\n");
+            prompt.append("- Height: ").append(userProfile.get("height")).append(" cm\n");
+            prompt.append("- Base Weight: ").append(userProfile.get("weight")).append(" kg\n\n");
+        } else {
+            prompt.append("- No profile demographics found.\n\n");
+        }
+
         prompt.append("User Activity History (Last workouts logged):\n");
         if (activities == null || activities.isEmpty()) {
             prompt.append("- No previous workouts logged yet. This is a fresh starting plan.\n");
@@ -205,6 +227,7 @@ public class RecommendationService {
         prompt.append("- Do not include markdown blocks like ```json.\n");
         prompt.append("- Do not include explanations outside the JSON.\n");
         prompt.append("- Follow the exact structure shown above.\n");
+        prompt.append("- If some historical workouts do not have heart rates, analyze their intensity via the 'rpe' score (scale 1-10) inside 'additionalMetrics'.\n");
 
         return prompt.toString();
     }
