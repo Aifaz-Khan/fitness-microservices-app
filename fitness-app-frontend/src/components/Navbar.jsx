@@ -22,6 +22,9 @@ export default function Navbar({ userProfile }) {
         <NavLink to="/insights" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
           AI Insights
         </NavLink>
+        <NavLink to="/goal" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+          Goal Plan
+        </NavLink>
         <NavLink to="/coach" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
           Coach Chat
         </NavLink>

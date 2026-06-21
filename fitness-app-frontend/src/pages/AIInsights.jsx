@@ -6,6 +6,78 @@ export default function AIInsights({ userId }) {
   const [selectedRec, setSelectedRec] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const parseRecommendation = (text) => {
+    if (!text) return [];
+    const paragraphs = text.split(/\n\n+/);
+    const sections = [];
+    paragraphs.forEach(para => {
+      const trimmed = para.trim();
+      if (!trimmed) return;
+      const colonIdx = trimmed.indexOf(':');
+      if (colonIdx > 0 && colonIdx < 25) {
+        sections.push({
+          title: trimmed.substring(0, colonIdx).trim(),
+          content: trimmed.substring(colonIdx + 1).trim()
+        });
+      } else {
+        sections.push({
+          title: 'General',
+          content: trimmed
+        });
+      }
+    });
+    return sections;
+  };
+
+  const renderFormattedText = (text) => {
+    if (!text) return null;
+    const lines = text.split('\n');
+    return lines.map((line, lIdx) => {
+      const trimmed = line.trim();
+      if (!trimmed) return null;
+      
+      const isBullet = trimmed.startsWith('-') || trimmed.startsWith('*') || /^\d+\./.test(trimmed);
+      let cleanLine = trimmed;
+      if (trimmed.startsWith('-') || trimmed.startsWith('*')) {
+        cleanLine = trimmed.substring(1).trim();
+      } else if (/^\d+\./.test(trimmed)) {
+        cleanLine = trimmed.replace(/^\d+\.\s*/, '');
+      }
+      
+      const parts = [];
+      let lastIndex = 0;
+      const boldRegex = /\*\*(.*?)\*\*/g;
+      let match;
+      while ((match = boldRegex.exec(cleanLine)) !== null) {
+        if (match.index > lastIndex) {
+          parts.push(cleanLine.substring(lastIndex, match.index));
+        }
+        parts.push(<strong key={match.index} style={{ color: 'var(--primary)', fontWeight: '600' }}>{match[1]}</strong>);
+        lastIndex = boldRegex.lastIndex;
+      }
+      if (lastIndex < cleanLine.length) {
+        parts.push(cleanLine.substring(lastIndex));
+      }
+      
+      if (isBullet) {
+        return (
+          <div key={lIdx} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', margin: '4px 0', paddingLeft: '8px' }}>
+            <span style={{ color: 'var(--primary)', fontSize: '14px', lineHeight: '1.4' }}>•</span>
+            <span style={{ fontSize: '14px', color: 'var(--text-primary)', lineHeight: '1.5', flexGrow: 1 }}>
+              {parts.length > 0 ? parts : cleanLine}
+            </span>
+          </div>
+        );
+      }
+      
+      return (
+        <p key={lIdx} style={{ margin: '4px 0', fontSize: '14px', color: 'var(--text-primary)', lineHeight: '1.5' }}>
+          {parts.length > 0 ? parts : cleanLine}
+        </p>
+      );
+    });
+  };
+
   useEffect(() => {
     async function fetchRecommendations() {
       if (!userId) return;
@@ -39,8 +111,8 @@ export default function AIInsights({ userId }) {
         </div>
       ) : recommendations.length === 0 ? (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80%', flexDirection: 'column', gap: '16px' }}>
-          <span style={{ fontSize: '48px' }}>🤖</span>
-          <h3>No AI recommendations available yet</h3>
+          <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'rgba(0, 212, 255, 0.1)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', fontWeight: '800' }}>AI</div>
+          <h3>No Recommendations Available</h3>
           <p style={{ color: 'var(--text-secondary)' }}>Log a workout first, and our Gemini AI coach will generate analysis dynamically!</p>
         </div>
       ) : (
@@ -97,23 +169,24 @@ export default function AIInsights({ userId }) {
                 </div>
 
                 <div className="insight-section">
-                  <h3>🧠 Overall Feedback & Metrics</h3>
-                  <div style={{
-                    backgroundColor: '#1A222D',
-                    border: '1px solid var(--border)',
-                    borderRadius: '8px',
-                    padding: '18px',
-                    fontSize: '15px',
-                    lineHeight: '1.6',
-                    whiteSpace: 'pre-line'
-                  }}>
-                    {selectedRec.recommendation}
+                  <h3>Performance Analysis</h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                    {parseRecommendation(selectedRec.recommendation).map((section, idx) => (
+                      <div key={idx} className="card" style={{ borderLeft: '3px solid var(--primary)', padding: '16px', backgroundColor: 'var(--card-bg)' }}>
+                        <h4 style={{ color: 'var(--primary)', fontSize: '13px', textTransform: 'uppercase', marginBottom: '8px', fontWeight: '700', letterSpacing: '0.5px' }}>
+                          {section.title}
+                        </h4>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                          {renderFormattedText(section.content)}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
                 <div className="insights-subgrid">
                   <div className="insight-section">
-                    <h3>📈 Suggested Improvements</h3>
+                    <h3>Suggested Improvements</h3>
                     <ul className="insight-bullet-list">
                       {selectedRec.improvements && selectedRec.improvements.length > 0 ? (
                         selectedRec.improvements.map((imp, idx) => (
@@ -126,7 +199,7 @@ export default function AIInsights({ userId }) {
                   </div>
 
                   <div className="insight-section">
-                    <h3>💪 Recommended Routines</h3>
+                    <h3>Recommended Routines</h3>
                     <ul className="insight-bullet-list">
                       {selectedRec.suggestions && selectedRec.suggestions.length > 0 ? (
                         selectedRec.suggestions.map((sug, idx) => (
@@ -141,7 +214,7 @@ export default function AIInsights({ userId }) {
 
                 {selectedRec.safety && selectedRec.safety.length > 0 && (
                   <div className="insight-section">
-                    <h3>⚠️ Injury Prevention & Safety</h3>
+                    <h3>Injury Prevention & Safety</h3>
                     <ul className="insight-bullet-list safety">
                       {selectedRec.safety.map((saf, idx) => (
                         <li key={idx} style={{ borderLeftColor: 'var(--primary)' }}>{saf}</li>

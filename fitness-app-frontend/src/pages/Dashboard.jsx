@@ -86,17 +86,17 @@ export default function Dashboard({ userId }) {
             {activities.map((act) => (
               <div key={act.id} className="activity-item">
                 <div className="activity-info">
-                  <div className="activity-icon-box">
-                    {act.type === 'RUNNING' && '🏃'}
-                    {act.type === 'WALKING' && '🚶'}
-                    {act.type === 'CYCLING' && '🚴'}
-                    {act.type === 'SWIMMING' && '🏊'}
-                    {act.type === 'WEIGHT_TRAINING' && '🏋️'}
-                    {act.type === 'YOGA' && '🧘'}
-                    {act.type === 'HIIT' && '🔥'}
-                    {act.type === 'CARDIO' && '💓'}
-                    {act.type === 'STRETCHING' && '🙆'}
-                    {act.type === 'OTHER' && '💪'}
+                  <div className="activity-icon-box" style={{ fontSize: '13px', fontWeight: '700', letterSpacing: '0.5px' }}>
+                    {act.type === 'RUNNING' && 'RUN'}
+                    {act.type === 'WALKING' && 'WLK'}
+                    {act.type === 'CYCLING' && 'CYC'}
+                    {act.type === 'SWIMMING' && 'SWM'}
+                    {act.type === 'WEIGHT_TRAINING' && 'WGT'}
+                    {act.type === 'YOGA' && 'YOG'}
+                    {act.type === 'HIIT' && 'HIT'}
+                    {act.type === 'CARDIO' && 'CRD'}
+                    {act.type === 'STRETCHING' && 'STR'}
+                    {act.type === 'OTHER' && 'FIT'}
                   </div>
                   <div className="activity-details">
                     <h4>{act.type.replace('_', ' ')}</h4>

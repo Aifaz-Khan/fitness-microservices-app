@@ -81,7 +81,7 @@ export default function CoachChat() {
         <div className="chat-main">
           {/* Header */}
           <div className="chat-header">
-            <div className="coach-avatar">🤖</div>
+            <div className="coach-avatar" style={{ fontSize: '14px', fontWeight: '800' }}>AI</div>
             <div>
               <h3 style={{ fontSize: '16px', fontWeight: '600' }}>AI Fitness Coach</h3>
               <p style={{ fontSize: '12px', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '4px' }}>

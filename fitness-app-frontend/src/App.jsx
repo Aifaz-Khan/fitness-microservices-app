@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import LogWorkout from './pages/LogWorkout';
 import AIInsights from './pages/AIInsights';
 import CoachChat from './pages/CoachChat';
+import GoalPlan from './pages/GoalPlan';
 import './App.css';
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
           <Route path="/" element={<Dashboard userId={userProfile?.id} />} />
           <Route path="/log" element={<LogWorkout userId={userProfile?.id} />} />
           <Route path="/insights" element={<AIInsights userId={userProfile?.id} />} />
+          <Route path="/goal" element={<GoalPlan userId={userProfile?.id} />} />
           <Route path="/coach" element={<CoachChat />} />
         </Routes>
       </main>
