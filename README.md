@@ -5,13 +5,13 @@ An advanced, secure, and AI-driven fitness tracking application built on a moder
 
 ---
 
-## ℹ️ About the Project
+##  About the Project
 
 **Fitness Tracker AI Microservices** is a state-of-the-art, secure fitness and wellness ecosystem designed to demonstrate modern enterprise microservice patterns combined with generative AI integration. 
 
 Unlike traditional monolith applications, this platform partitions operations into specialized domain services to maximize scalability, fault isolation, and developer agility. 
 
-### 🌟 Core Value Propositions
+###  Core Value Propositions
 * **Security at the Edge**: Relies on Keycloak OAuth2 Identity Provider. All microservices are hidden behind a secure API Gateway, which handles JWT token validation using a PKCE flow.
 * **Asynchronous & Decoupled Event Pipeline**: When a workout is logged in the `activityservice`, it immediately publishes a message to a RabbitMQ exchange. The UI receives an instant confirmation. In the background, the `aiservice` consumes the event, coordinates with the LLM API, parses the recommendation, and writes it to the database asynchronously.
 * **Intelligent Feedback Loops**: Leverages generative AI models to deliver structured analysis of metrics (calories, heart rate, Rate of Perceived Exertion) and keeps chat history context for personalized wellness coaching.
@@ -21,7 +21,7 @@ Unlike traditional monolith applications, this platform partitions operations in
 
 ---
 
-## 🏗️ Architecture Overview
+##  Architecture Overview
 
 The system consists of a React frontend and a set of Spring Boot microservices backed by PostgreSQL, MongoDB, and RabbitMQ. Identity and access management are handled centrally via Keycloak.
 
@@ -64,7 +64,7 @@ graph TD
 
 ---
 
-## 🛠️ Prerequisites
+##  Prerequisites
 
 Ensure you have the following installed on your machine:
 - **Java Development Kit (JDK)**: Version 17 or higher
@@ -76,7 +76,7 @@ Ensure you have the following installed on your machine:
 
 ---
 
-## 🚀 Local Installation & Run Guide
+##  Local Installation & Run Guide
 
 To run the entire system locally, start the components in the following chronological order:
 
@@ -151,7 +151,7 @@ To run the entire system locally, start the components in the following chronolo
 
 ---
 
-## ⚡ AI Integration Details
+##  AI Integration Details
 
 The **AI Service** handles two core capabilities using the Gemini LLM API:
 1. **Automated Analysis**: When a workout is logged in `activityservice`, an event is published to RabbitMQ. The `aiservice` consumes the event, passes details to Gemini with a structured JSON schema, and stores the response details (improvements, suggestions, safety tips) in MongoDB.
@@ -159,6 +159,6 @@ The **AI Service** handles two core capabilities using the Gemini LLM API:
 
 ---
 
-## 🔒 Security
+##  Security
 
 All network communication from the frontend goes through the API Gateway on port `8080`. The Gateway integrates with Keycloak to inspect JWT tokens sent by the client. Services expect a valid bearer token to access endpoint endpoints like `/api/users/**`, `/api/activities/**`, and `/api/recommendations/**`.
