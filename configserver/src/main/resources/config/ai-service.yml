@@ -3,13 +3,13 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/fitnessrecommendation
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/fitnessrecommendation}
       database: fitnessrecommendation
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
 
 eureka:
   instance:

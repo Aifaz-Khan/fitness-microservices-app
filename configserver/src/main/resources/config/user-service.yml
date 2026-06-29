@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/fitness_user_db
-    username: macbookair
-    password: jackal
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/fitness_user_db}
+    username: ${SPRING_DATASOURCE_USERNAME:macbookair}
+    password: ${SPRING_DATASOURCE_PASSWORD:jackal}
   jpa:
     hibernate:
       ddl-auto: update
