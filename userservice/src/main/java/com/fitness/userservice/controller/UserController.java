@@ -14,19 +14,43 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private UserService userService;
     @GetMapping("/{userId}")
-    public ResponseEntity<UserResponse>getUserProfile(@PathVariable String userId){
-        return ResponseEntity.ok(userService.getUserProfile(userId));
+    public ResponseEntity<?> getUserProfile(@PathVariable String userId){
+        try {
+            return ResponseEntity.ok(userService.getUserProfile(userId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(java.util.Map.of(
+                "error", e.getMessage() != null ? e.getMessage() : "Unknown Error",
+                "type", e.getClass().getName()
+            ));
+        }
     }
     @PostMapping("/register")
-    public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request){
-        return ResponseEntity.ok(userService.register(request));
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request){
+        try {
+            return ResponseEntity.ok(userService.register(request));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(java.util.Map.of(
+                "error", e.getMessage() != null ? e.getMessage() : "Unknown Error",
+                "type", e.getClass().getName()
+            ));
+        }
     }
     @GetMapping("/{userId}/validate")
     public ResponseEntity<Boolean>validate(@PathVariable String userId){
         return ResponseEntity.ok(userService.existByUserId(userId));
     }
     @PutMapping("/{keycloakId}")
-    public ResponseEntity<UserResponse> updateProfile(@PathVariable String keycloakId, @RequestBody UserResponse request){
-        return ResponseEntity.ok(userService.updateProfile(keycloakId, request));
+    public ResponseEntity<?> updateProfile(@PathVariable String keycloakId, @RequestBody UserResponse request){
+        try {
+            return ResponseEntity.ok(userService.updateProfile(keycloakId, request));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(java.util.Map.of(
+                "error", e.getMessage() != null ? e.getMessage() : "Unknown Error",
+                "type", e.getClass().getName()
+            ));
+        }
     }
 }
