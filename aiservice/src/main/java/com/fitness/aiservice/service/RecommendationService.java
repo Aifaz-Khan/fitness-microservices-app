@@ -15,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.core.ParameterizedTypeReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,12 @@ public class RecommendationService {
     private final UserGoalPlanRepository userGoalPlanRepository;
     private final GeminiService geminiService;
     private final WebClient.Builder webClientBuilder;
+
+    @Value("${ACTIVITY_SERVICE_URL:http://localhost:8082}")
+    private String activityServiceUrl;
+
+    @Value("${USER_SERVICE_URL:http://localhost:8081}")
+    private String userServiceUrl;
 
     public List<Recommendation> getUserRecommendation(String userId) {
         return recommendationRepository.findByUserId(userId);
@@ -108,7 +115,7 @@ public class RecommendationService {
             // 1. Fetch user activities from activityservice via WebClient
             WebClient webClient = webClientBuilder.build();
             List<Map<String, Object>> activities = webClient.get()
-                    .uri("http://localhost:8082/api/activities")
+                    .uri(activityServiceUrl + "/api/activities")
                     .header("X-User-ID", userId)
                     .retrieve()
                     .bodyToFlux(new ParameterizedTypeReference<Map<String, Object>>() {})
@@ -119,7 +126,7 @@ public class RecommendationService {
             Map<String, Object> userProfile = null;
             try {
                 userProfile = webClient.get()
-                        .uri("http://localhost:8081/api/users/" + userId)
+                        .uri(userServiceUrl + "/api/users/" + userId)
                         .retrieve()
                         .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
                         .block();
