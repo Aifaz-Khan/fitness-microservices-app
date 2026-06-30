@@ -102,6 +102,7 @@ public class UserService {
                     newUser.setEmail(request.getEmail());
                     newUser.setFirstName(request.getFirstName());
                     newUser.setLastName(request.getLastName());
+                    newUser.setPassword("keycloak_managed");
                     return newUser;
                 });
 
