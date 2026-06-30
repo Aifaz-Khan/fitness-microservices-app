@@ -10,7 +10,7 @@ import GoalPlan from './pages/GoalPlan';
 import api from './services/api';
 import './App.css';
 
-function ProfileSetupCard({ keycloakId, onComplete }) {
+function ProfileSetupCard({ keycloakId, userProfile, onComplete }) {
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('MALE');
   const [height, setHeight] = useState('');
@@ -29,7 +29,10 @@ function ProfileSetupCard({ keycloakId, onComplete }) {
         age: parseInt(age, 10),
         gender,
         height: parseFloat(height),
-        weight: parseFloat(weight)
+        weight: parseFloat(weight),
+        email: userProfile?.email,
+        firstName: userProfile?.firstName,
+        lastName: userProfile?.lastName
       });
       onComplete(res.data);
     } catch (err) {
@@ -213,7 +216,7 @@ function App() {
         alignItems: 'center',
         padding: '16px'
       }}>
-        <ProfileSetupCard keycloakId={userProfile?.id} onComplete={(updatedProfile) => setAthleteProfile(updatedProfile)} />
+        <ProfileSetupCard keycloakId={userProfile?.id} userProfile={userProfile} onComplete={(updatedProfile) => setAthleteProfile(updatedProfile)} />
       </div>
     );
   }

@@ -96,7 +96,14 @@ public class UserService {
 
     public UserResponse updateProfile(String keycloakId, UserResponse request) {
         User user = repository.findByKeycloakId(keycloakId)
-                .orElseThrow(() -> new RuntimeException("User Not Found"));
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setKeycloakId(keycloakId);
+                    newUser.setEmail(request.getEmail());
+                    newUser.setFirstName(request.getFirstName());
+                    newUser.setLastName(request.getLastName());
+                    return newUser;
+                });
 
         user.setHeight(request.getHeight());
         user.setWeight(request.getWeight());
