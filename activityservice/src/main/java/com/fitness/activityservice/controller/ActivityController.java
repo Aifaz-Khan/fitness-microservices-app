@@ -18,15 +18,39 @@ import org.springframework.web.bind.annotation.*;
 public class ActivityController {
     private ActivityService activityService;
     @PostMapping
-    public ResponseEntity<ActivityResponse>trackActivity(@RequestBody ActivityRequest request){
-        return ResponseEntity.ok(activityService.trackActivity(request));
+    public ResponseEntity<?> trackActivity(@RequestBody ActivityRequest request){
+        try {
+            return ResponseEntity.ok(activityService.trackActivity(request));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(java.util.Map.of(
+                "error", e.getMessage() != null ? e.getMessage() : "Unknown Error",
+                "type", e.getClass().getName()
+            ));
+        }
     }
     @GetMapping
-    public ResponseEntity<List<ActivityResponse>>getUserActivities(@RequestHeader("X-User-ID")String userId){
-        return ResponseEntity.ok(activityService.getUserActivities(userId));
+    public ResponseEntity<?> getUserActivities(@RequestHeader("X-User-ID")String userId){
+        try {
+            return ResponseEntity.ok(activityService.getUserActivities(userId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(java.util.Map.of(
+                "error", e.getMessage() != null ? e.getMessage() : "Unknown Error",
+                "type", e.getClass().getName()
+            ));
+        }
     }
     @GetMapping("/{activityId}")
-    public ResponseEntity<ActivityResponse>getActivity(@PathVariable String activityId){
-        return ResponseEntity.ok(activityService.getActivityById(activityId));
+    public ResponseEntity<?> getActivity(@PathVariable String activityId){
+        try {
+            return ResponseEntity.ok(activityService.getActivityById(activityId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(java.util.Map.of(
+                "error", e.getMessage() != null ? e.getMessage() : "Unknown Error",
+                "type", e.getClass().getName()
+            ));
+        }
     }
 }
