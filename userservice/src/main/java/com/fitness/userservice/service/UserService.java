@@ -99,9 +99,13 @@ public class UserService {
                 .orElseGet(() -> {
                     User newUser = new User();
                     newUser.setKeycloakId(keycloakId);
-                    newUser.setEmail(request.getEmail());
-                    newUser.setFirstName(request.getFirstName());
-                    newUser.setLastName(request.getLastName());
+                    String email = request.getEmail();
+                    if (email == null || email.trim().isEmpty()) {
+                        email = keycloakId + "@placeholder.com";
+                    }
+                    newUser.setEmail(email);
+                    newUser.setFirstName(request.getFirstName() != null ? request.getFirstName() : "Athlete");
+                    newUser.setLastName(request.getLastName() != null ? request.getLastName() : "");
                     newUser.setPassword("keycloak_managed");
                     return newUser;
                 });
