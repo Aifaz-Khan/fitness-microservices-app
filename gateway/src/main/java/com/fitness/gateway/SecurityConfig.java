@@ -11,6 +11,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
+import org.springframework.web.reactive.function.server.RequestPredicates;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,11 +27,20 @@ public class SecurityConfig {
     private List<String> allowedOrigins;
 
     @Bean
+    public RouterFunction<ServerResponse> healthRoute() {
+        return RouterFunctions.route(
+                RequestPredicates.GET("/health"),
+                request -> ServerResponse.ok().bodyValue("UP")
+        );
+    }
+
+    @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http){
         return http
                 .cors(Customizer.withDefaults())
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
+                        .pathMatchers("/health").permitAll()
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth2->oauth2.jwt(Customizer.withDefaults()))
